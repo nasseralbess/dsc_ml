@@ -4,7 +4,7 @@
 #include <random>
 using namespace std;
 
-linear_reg::linear_reg(const mat& X_input, const vectr& y_input): X(X_input), y(y_input) {
+linear_reg::linear_reg(mat X_input, vectr y_input):X(X_input), y(y_input), theta(X_input.get_cols()){
     if (X_input.get_rows() != y_input.get_size()) {
         throw "Number of training examples must match number of labels";
     }
@@ -21,18 +21,21 @@ void linear_reg::fit(double alpha_input, int iters_input) {
 }
 
 void linear_reg::gradient_descent() {
+    cout<<"Initial theta:"<<endl;
+    theta.print();
+    cout<<"-------------"<<endl;
     for(int k=0;k<iters;k++){    
         for(int i=0;i<X.get_rows();i++){
             vector<double>grads(theta.get_size(),0);
-            int f = 0;
+            double f = 0;
             for(int j=0;j<X.get_cols();j++){
                 f+= theta[j]*X[i][j];
             }
             for(int j=0;j<theta.get_size();j++){
-                grads[j] += X[i][j]*(f-y[i])/X.get_rows();
+                grads[j] += X[i][j]*(f-y[i]);
             }
             for(int j=0;j<theta.get_size();j++){
-                theta[j]-= alpha*grads[j];
+                theta[j]-= alpha*grads[j]/X.get_rows();
             }
         }
     }
@@ -71,12 +74,18 @@ int main(){
     vectr v6({3,6});
     mat mat2({v4,v5,v6});
     mat mat3 = mat1*mat2;
-    mat3.print();
+    // mat3.print();
     vectr mat4 = mat1*v3;
-    mat4.print();
+    // mat4.print();
     mat mat5 = mat3.t();
-    mat5.print();
-
-
+    // mat5.print();
+    v1.print();
+    linear_reg model = linear_reg(mat1,v1);
+    model.predict(mat1).print();
+    cout<<"__________"<<endl;
+    model.fit();
+    cout<<"preds"<<endl;
+    model.predict(mat1).print();
+    model.get_params();
     return 0;
 }
