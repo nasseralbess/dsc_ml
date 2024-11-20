@@ -7,7 +7,7 @@ using namespace std;
 
 class mat{
     public:
-        mat();
+        // mat();
         mat(int r, int c);
         mat(vector<vectr> m);
         mat(const mat& m);        

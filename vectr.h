@@ -6,8 +6,10 @@ using namespace std;
 
 class vectr{
     public:
+        // vectr();
         vectr(int s);
         vectr(vector<double> v);
+        vectr(const vectr& v);
         ~vectr();
         
         double operator*(const vectr& v);

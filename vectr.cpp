@@ -3,6 +3,10 @@
 # include <iostream>
 using namespace std;
 
+// vectr::vectr(){
+//     data = vector<double>(1);
+//     size = 1;
+// }
 vectr::vectr(int s){
     if (s<1){
         throw "Cannot create a vector of size less than 1";
@@ -13,6 +17,10 @@ vectr::vectr(int s){
 vectr::vectr(vector<double> v){
     size = v.size();
     data = v;
+}
+
+vectr::vectr(const vectr& v): data(v.data){
+    size = v.size;
 }
 
 double vectr::operator*(const vectr& v){

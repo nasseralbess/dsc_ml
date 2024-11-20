@@ -4,15 +4,12 @@
 #include <random>
 using namespace std;
 
-linear_reg::linear_reg(const mat& X_input, const vectr& y_input) {
+linear_reg::linear_reg(const mat& X_input, const vectr& y_input): X(X_input), y(y_input) {
     if (X_input.get_rows() != y_input.get_size()) {
         throw "Number of training examples must match number of labels";
     }
-    X = X_input;
-    y = y_input;
     theta = vectr(X.get_cols());
-    
-    for(int i = 0; i < X.get_cols(); i++) {
+    for (int i = 0; i < X.get_cols(); i++) {
         theta[i] = ((double)rand()) / RAND_MAX;
     }
 }
@@ -62,4 +59,24 @@ void linear_reg::get_params() {
     }
     cout << "Learning rate (alpha): " << alpha << endl;
     cout << "Number of iterations: " << iters << endl;
+}
+
+int main(){
+    vectr v1 ({1,2,3});
+    vectr v2({9,5,6});
+    vectr v3({5,7,9});
+    mat mat1({v1,v2,v3});
+    vectr v4({1,4});
+    vectr v5({2,5});
+    vectr v6({3,6});
+    mat mat2({v4,v5,v6});
+    mat mat3 = mat1*mat2;
+    mat3.print();
+    vectr mat4 = mat1*v3;
+    mat4.print();
+    mat mat5 = mat3.t();
+    mat5.print();
+
+
+    return 0;
 }

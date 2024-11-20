@@ -2,14 +2,15 @@
 #include <iostream>
 #include "mat.h"
 #include "vectr.h"
-#include "vectr.cpp"
+// #include "vectr.cpp"
 using namespace std;
 
 
-mat::mat(){
-    data = ;
+// mat::mat(){
+//     data = vector<vectr>(1, vectr(1));
+//     rows = cols = 1;
 
-}
+// }
 mat::mat(int r, int c){
     if (r<1 || c<1){
         throw "Cannot create a matrix with less than 1 row or column";
@@ -31,10 +32,9 @@ mat::mat(vector<vectr> m){
     }
     data = m;
 }
-mat::mat(const mat& m){
+mat::mat(const mat& m): data(m.data){
     rows = m.rows;
     cols = m.cols;
-    data = m.data;
 }
 mat::~mat(){
     data.clear();
@@ -134,22 +134,3 @@ mat mat::t(){
     return result;
 }
 
-int main(){
-    vectr v1 ({1,2,3});
-    vectr v2({9,5,6});
-    vectr v3({5,7,9});
-    mat mat1({v1,v2,v3});
-    vectr v4({1,4});
-    vectr v5({2,5});
-    vectr v6({3,6});
-    mat mat2({v4,v5,v6});
-    mat mat3 = mat1*mat2;
-    mat3.print();
-    vectr mat4 = mat1*v3;
-    mat4.print();
-    mat mat5 = mat3.t();
-    mat5.print();
-
-
-    return 0;
-}
