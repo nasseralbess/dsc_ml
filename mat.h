@@ -7,24 +7,22 @@ using namespace std;
 
 class mat{
     public:
+        mat();
         mat(int r, int c);
         mat(vector<vectr> m);
         mat(const mat& m);        
         ~mat();
         
-        vectr operator*(vectr& v);
+        vectr operator*(const vectr& v);
         mat operator*(mat& m);
         mat operator+(const mat& m);
         mat operator-(const mat& m);
         mat operator*(double c);
         mat operator/(double c);
-        vectr operator[](int i);
+        vectr& operator[](int i);
         void operator=(const mat& m);
-        void set(int r, int c, double val);
-        void set(int r, vectr v);
-        void set(vectr v, int c);
-        int get_rows();
-        int get_cols();
+        int get_rows() const;
+        int get_cols() const;
         void print();
         mat t();
     private:

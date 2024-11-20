@@ -13,8 +13,7 @@ class vectr{
         double operator*(const vectr& v);
         double& operator[](int i);
         void operator=(const vectr& v);
-        void set(int i, double val);
-        int get_size();
+        int get_size() const;
         void print();
         vectr operator+(const vectr& v);
         vectr operator-(const vectr& v);

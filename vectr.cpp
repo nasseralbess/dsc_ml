@@ -75,13 +75,7 @@ void vectr::operator=(const vectr& v){
     size = v.size;
     data = v.data;
 }
-void vectr::set(int i, double val){
-    if (i<0 || i>=size){
-        throw "Index out of bounds";
-    }
-    data[i] = val;
-}
-int vectr::get_size(){
+int vectr::get_size() const{
     return size;
 }
 void vectr::print(){

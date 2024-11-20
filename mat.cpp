@@ -5,6 +5,11 @@
 #include "vectr.cpp"
 using namespace std;
 
+
+mat::mat(){
+    data = ;
+
+}
 mat::mat(int r, int c){
     if (r<1 || c<1){
         throw "Cannot create a matrix with less than 1 row or column";
@@ -34,19 +39,19 @@ mat::mat(const mat& m){
 mat::~mat(){
     data.clear();
 }
-vectr mat::operator[](int i){
+vectr& mat::operator[](int i){
     if (i<0 || i>=rows){
         throw "Index out of bounds";
     }
     return data[i];
 }
-vectr mat::operator*(vectr& v){
+vectr mat::operator*(const vectr& v){
     if(cols != v.get_size()){
         throw "Cannot multiply a matrix of size "+to_string(rows)+"x"+to_string(cols)+" by a vector of size "+to_string(v.get_size());
     }
     vectr res(rows);
     for(int i=0; i<rows;i++){
-        res.set(i,data[i]*v);
+        res[i]=data[i]*v;
     }
     return res;
 }
@@ -59,9 +64,9 @@ mat mat::operator*(mat& m){
         for(int j=0;j<m.cols;j++){
             vectr res2(cols);
             for(int k=0;k<cols;k++ ){
-                res2.set(k,m[k][j]);
+                res2[k]=m[k][j];
             }
-            result.set(i,j,data[i]*res2);
+            result[i][j]=data[i]*res2;
         }
     }
     return result;
@@ -108,30 +113,10 @@ void mat::operator=(const mat& m){
     cols = m.cols;
     data = m.data;
 }
-void mat::set(int r, int c, double val){
-    if (r<0 || r>=rows || c<0 || c>=cols){
-        throw "Index out of bounds";
-    }
-    data[r].set(c, val);
-}
-void mat::set(int r, vectr v){
-    if (r<0 || r>=rows || v.get_size() != cols){
-        throw "Index out of bounds";
-    }
-    data[r] = v;
-}
-void mat::set(vectr v, int c){
-    if (c<0 || c>=cols || v.get_size() != rows){
-        throw "Index out of bounds";
-    }
-    for (int i=0; i<rows; i++){
-        data[i].set(c, v[i]);
-    }
-}
-int mat::get_rows(){
+int mat::get_rows() const{
     return rows;
 }
-int mat::get_cols(){
+int mat::get_cols() const{
     return cols;
 }
 void mat::print(){
@@ -143,7 +128,7 @@ mat mat::t(){
     mat result(cols, rows);
     for (int i=0; i<rows; i++){
         for (int j=0; j<cols; j++){
-            result.data[j].set(i, data[i][j]);
+            result[j][i] = data[i][j];
         }
     }
     return result;
@@ -160,6 +145,10 @@ int main(){
     mat mat2({v4,v5,v6});
     mat mat3 = mat1*mat2;
     mat3.print();
+    vectr mat4 = mat1*v3;
+    mat4.print();
+    mat mat5 = mat3.t();
+    mat5.print();
 
 
     return 0;
