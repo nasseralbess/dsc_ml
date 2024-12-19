@@ -21,23 +21,21 @@ void linear_reg::fit(double alpha_input, int iters_input) {
 }
 
 void linear_reg::gradient_descent() {
-    cout<<"Initial theta:"<<endl;
-    theta.print();
-    cout<<"-------------"<<endl;
     for(int k=0;k<iters;k++){    
-        for(int i=0;i<X.get_rows();i++){
-            vector<double>grads(theta.get_size(),0);
-            double f = 0;
-            for(int j=0;j<X.get_cols();j++){
-                f+= theta[j]*X[i][j];
-            }
-            for(int j=0;j<theta.get_size();j++){
-                grads[j] += X[i][j]*(f-y[i]);
-            }
-            for(int j=0;j<theta.get_size();j++){
-                theta[j]-= alpha*grads[j]/X.get_rows();
-            }
-        }
+        // for(int i=0;i<X.get_rows();i++){
+        //     vector<double>grads(theta.get_size(),0);
+        //     double f = 0;
+        //     for(int j=0;j<X.get_cols();j++){ 
+        //         f+= theta[j]*X[i][j];
+        //     }
+        //     for(int j=0;j<theta.get_size();j++){
+        //         grads[j] += X[i][j]*(f-y[i]);
+
+        //         theta[j]-= alpha*grads[j]/X.get_rows();
+        //     }
+        // }
+        theta = theta - X.t()*(X*theta-y)/X.get_rows()*alpha;
+
     }
 }
 
@@ -87,13 +85,15 @@ int main(){
     // mat4.print();
     mat mat5 = mat3.t();
     // mat5.print();
-    v1.print();
-    linear_reg model = linear_reg(mat1,v1);
+    v2.print();
+    linear_reg model = linear_reg(mat1,v2);
+    cout<<"Prediction without training:"<<endl<<"____________________"<<endl;
     model.predict(mat1).print();
     cout<<"__________"<<endl;
     model.fit();
     cout<<"preds"<<endl;
     model.predict(mat1).print();
+    cout<<"_______________________________";
     model.get_params();
     cout<<"MSE: "<<model.mse(mat1, v1);
     return 0;
