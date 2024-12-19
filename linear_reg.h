@@ -8,8 +8,8 @@ class linear_reg{
         linear_reg(mat X, vectr y);
         void fit(double alpha_input= 0.001, int iters_input = 1000000);
         vectr predict(mat& X);
-        double accuracy(const mat& X, const vectr& y);
-        double mse(const mat& X, const vectr& y);
+        double accuracy(mat& X, const vectr& y);
+        double mse(mat& X, const vectr& y);
         void get_params();
     private:
         mat X;

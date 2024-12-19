@@ -47,12 +47,20 @@ vectr linear_reg::predict(mat& X_input) {
     return res;
 }
 
-double linear_reg::accuracy(const mat& X_test, const vectr& y_test) {
-    return 0;
-}
+// double linear_reg::accuracy(const mat& X_test, const vectr& y_test) {
+    
+//     return 0;
+// }
 
-double linear_reg::mse(const mat& X_test, const vectr& y_test) {
-    return 0;
+double linear_reg::mse(mat& X_test, const vectr& y_test) {
+    vectr preds(X_test.get_rows()); 
+    preds = predict(X_test);
+    vectr err = preds-y_test;
+    double error=0;
+    for (int i=0;i<y_test.get_size();i++){
+        error += err[i]*err[i];
+    }    
+    return error;
 }
 
 void linear_reg::get_params() {
@@ -87,5 +95,6 @@ int main(){
     cout<<"preds"<<endl;
     model.predict(mat1).print();
     model.get_params();
+    cout<<"MSE: "<<model.mse(mat1, v1);
     return 0;
 }
