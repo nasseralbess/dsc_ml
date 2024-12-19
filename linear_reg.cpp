@@ -95,6 +95,6 @@ int main(){
     model.predict(mat1).print();
     cout<<"_______________________________";
     model.get_params();
-    cout<<"MSE: "<<model.mse(mat1, v1);
+    cout<<"MSE: "<<model.mse(mat1, v2);
     return 0;
 }
